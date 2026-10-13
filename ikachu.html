@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DI BACA YAH DEDENYA ACHU 💙</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Sacramento&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 50%, #e0c3fc 100%);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+            color: #2c3e50;
+        }
+
+        /* Container Card */
+        .card-container {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(30, 136, 229, 0.2);
+            width: 100%;
+            max-width: 480px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        /* Floating Animation Background */
+        .bg-element {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.6;
+            animation: floatUp 8s infinite linear;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Header Style */
+        h1 {
+            font-family: 'Sacramento', cursive;
+            font-size: 2.8rem;
+            color: #1976d2;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #546e7a;
+            margin-bottom: 20px;
+        }
+
+        /* Music Player Box */
+        .music-player {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #e1f5fe;
+        }
+
+        .music-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #bbdefb;
+            color: #1976d2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            animation: spin 6s linear infinite;
+            animation-play-state: paused;
+        }
+
+        .music-player.playing .music-icon {
+            animation-play-state: running;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .music-info {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .song-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #0d47a1;
+        }
+
+        .artist {
+            font-size: 0.75rem;
+            color: #78909c;
+        }
+
+        .play-btn {
+            background: #1e88e5;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s ease;
+            box-shadow: 0 4px 10px rgba(30, 136, 229, 0.3);
+        }
+
+        .play-btn:hover {
+            background: #1565c0;
+            transform: scale(1.05);
+        }
+
+        /* Main Content Slider / Message */
+        .message-box {
+            background: #f4f9ff;
+            border-left: 4px solid #1e88e5;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #37474f;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Interactive Buttons */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            min-height: 55px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-yes {
+            background: #1e88e5;
+            color: white;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.4);
+            z-index: 2;
+        }
+
+        .btn-yes:hover {
+            background: #1565c0;
+            transform: translateY(-2px);
+        }
+
+        .btn-no {
+            background: #cfd8dc;
+            color: #455a64;
+            position: absolute;
+            z-index: 5;
+            transition: all 0.15s ease-out;
+        }
+
+        /* Extra Feature: Photo Gallery Placeholder */
+        .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .photo-card {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            background: #e3f2fd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            border: 2px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .photo-card:hover {
+            transform: scale(1.1) rotate(3deg);
+        }
+
+        /* Success Secret Message Panel */
+        .success-panel {
+            display: none;
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .wa-btn {
+            background: #25d366;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: 0.2s ease;
+        }
+
+        .wa-btn:hover {
+            background: #1eb954;
+            transform: translateY(-2px);
+        }
+
+        .next-quote-btn {
+            background: transparent;
+            border: 1px solid #1e88e5;
+            color: #1e88e5;
+            padding: 6px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: 0.2s;
+        }
+
+        .next-quote-btn:hover {
+            background: #e3f2fd;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dynamic Animated Background Hearts -->
+    <div id="bgContainer"></div>
+
+    <div class="card-container">
+        
+        <!-- Audio Element (Ganti src jika ingin pakai lagu sendiri) -->
+        <audio id="bgMusic" loop>
+            <source src="vidssave.com ANDMESH  - ANUGERAH TERINDAH (OFFICIAL MUSIC VIDEO) 144P.mp4" type="audio/mpeg">
+            Browser kamu tidak mendukung pemutar musik.
+        </audio>
+
+        <!-- Music Player Widget -->
+        <div class="music-player" id="playerWidget">
+            <div class="music-icon">
+                <i class="fa-solid fa-music"></i>
+            </div>
+            <div class="music-info">
+                <div class="song-title">ANUGERAH TERINDAH 💙</div>
+                <div class="artist">Diputar khusus untukmu</div>
+            </div>
+            <button class="play-btn" id="playBtn" onclick="toggleMusic()">
+                <i class="fa-solid fa-play" id="playIcon"></i>
+            </button>
+        </div>
+
+        <!-- Initial Main Screen -->
+        <div id="mainContent">
+            <h1>Halo Cayangnya Achu... 💙</h1>
+            <p class="subtitle">Achu punya pesan special khusus buat dede hayi ini</p>
+
+            <!-- Cute Mini Gallery -->
+            <div class="gallery">
+                <div class="photo-card" onclick="alert('Dede itu punya senyuman manis! 💙')">🥰</div>
+                <div class="photo-card" onclick="alert('Jangan badmood yagi yah.. ✨')">🥺</div>
+                <div class="photo-card" onclick="alert('Ndut cayang dede! 💙')">💍</div>
+            </div>
+
+            <!-- Romantic Quote Box -->
+            <div class="message-box" id="quoteBox">
+                " achu minta maaf yah dedenya achu cuda yambat buatkan, cepatutnya kemayin cuda jadi hmm coyi "
+            </div>
+            <button class="next-quote-btn" onclick="nextQuote()"><i class="fa-solid fa-arrows-rotate"></i> Baca Alasan Lainnya</button>
+            <br><br>
+
+            <p style="font-size: 0.9rem; font-weight: 600; margin-bottom: 15px; color: #1e88e5;">
+                Cekayang dede macih mayah gak cama ndut ? 🥺
+            </p>
+
+            <!-- Interactive Buttons -->
+            <div class="btn-group" id="btnGroup">
+                <button class="btn btn-yes" onclick="forgiveMe()">
+                    <i class="fa-solid fa-heart"></i> Tida Kok Ndutnya Achu 🥰
+                </button>
+                <button class="btn btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">
+                    IYAAA DEDEE MACIHH MAYAHH! 😜
+                </button>
+            </div>
+        </div>
+
+        <!-- Secret Success Screen (Appears after clicking 'Udah Enggak') -->
+        <div class="success-panel" id="successPanel">
+            <div style="font-size: 4rem; margin-bottom: 10px;">🎉💙✨</div>
+            <h1>Makacih banyakk dedenya achuu!</h1>
+            <p style="color: #455a64; margin-top: 10px; line-height: 1.6;">
+                Yeyy, makacih yah cuda mau maafkan nduttt, ndutt cungguh cungguhh cayang dedeee 🥰
+            </p>
+
+            <!-- WhatsApp Chat Button (Ganti nomor HP kamu di href) -->
+            <a href="https://wa.me/60177352791/?text=dedeee%20tidaa%20mayahhh%20yagi%20kok%20cayangnyaa achuu%20💙" target="_blank" class="wa-btn">
+                <i class="fa-brand fa-whatsapp" style="font-size: 1.2rem;"></i> Kabari ndutt di wa yahh cayangnya achuu 💙
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        // List Quotes Bujukan
+        const quotes = [
+            "ndutt mintaa maaf yah dedenya achuu, ndutt ceyayuuu buatt dede kecepiann, buatt dedee cedih dengan cikap ndutt",
+            "meskipunn ndutt ceyayuuu begichuu, ucaha ndutt untuk beyubah demii dedee happyy bayikk ichuu adaa kokk 🥺",
+            "ndutt tidaa adaaa niat cedikitpunn mau buatt dede cedihh, maafkann keyakuan ndutt yahh cayangnya achuu 💙",
+            "cemua tentang dedee, hal tentang dede ichu buat ndutt bahagiaa ✨"
+        ];
+        let currentQuoteIndex = 0;
+
+        function nextQuote() {
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            document.getElementById('quoteBox').innerText = `"${quotes[currentQuoteIndex]}"`;
+        }
+
+        // Music Controls
+        const music = document.getElementById('bgMusic');
+        const playBtn = document.getElementById('playBtn');
+        const playIcon = document.getElementById('playIcon');
+        const playerWidget = document.getElementById('playerWidget');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                playIcon.className = "fa-solid fa-play";
+                playerWidget.classList.remove('playing');
+            } else {
+                music.play();
+                playIcon.className = "fa-solid fa-pause";
+                playerWidget.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Auto play music on first click anywhere (Browser Auto-play Policy)
+        document.body.addEventListener('click', function() {
+            if (!isPlaying) {
+                toggleMusic();
+            }
+        }, { once: true });
+
+        // Runaway Button Logic
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const card = document.querySelector('.card-container');
+            
+            // Calculate random boundary inside visible screen
+            const maxX = window.innerWidth - noBtn.offsetWidth - 30;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 30;
+
+            const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        // Forgive Action
+        function forgiveMe() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('successPanel').style.display = 'block';
+            createConfetti();
+        }
+
+        // Floating Hearts Effect
+        function createFloatingElements() {
+            const container = document.getElementById('bgContainer');
+            const icons = ['💙', '✨', '❄️', '☁️', '🤍'];
+            
+            for (let i = 0; i < 15; i++) {
+                const el = document.createElement('div');
+                el.className = 'bg-element';
+                el.innerText = icons[Math.floor(Math.random() * icons.length)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                el.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                el.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(el);
+            }
+        }
+
+        // Simple Confetti Effect on Forgive
+        function createConfetti() {
+            const container = document.getElementById('bgContainer');
+            for (let i = 0; i < 30; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'bg-element';
+                confetti.innerText = '💙';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.fontSize = '24px';
+                container.appendChild(confetti);
+            }
+        }
+
+        // Initialize Background Elements
+        createFloatingElements();
+    </script>
+</body>
+</html>
